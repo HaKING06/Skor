@@ -1,0 +1,273 @@
+:root {
+    /* Ana Renkler */
+    --bg-body: #0f172a;      /* Çok koyu, mat lacivert (Masa zemini) */
+    --surface: #1e293b;      /* Kart rengi */
+    --surface-light: #334155;
+    
+    /* Vurgu Renkleri */
+    --gold: #fbbf24;         /* Skor Rengi (Altın) */
+    --text-main: #f1f5f9;    /* Ana Yazı (Kırık Beyaz) */
+    --text-sub: #94a3b8;     /* Alt Yazı (Gri) */
+    
+    /* Fonksiyonel Renkler */
+    --red: #ef4444;          /* Ceza */
+    --red-bg: rgba(239, 68, 68, 0.1);
+    --blue: #3b82f6;         /* Butonlar */
+    --green: #10b981;        /* Onay */
+    
+    /* Yapısal */
+    --radius: 16px;
+    --border: 1px solid rgba(255, 255, 255, 0.08);
+    --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+    --font: 'Inter', -apple-system, sans-serif;
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+body {
+    background-color: var(--bg-body);
+    /* Hafif bir spot ışığı efekti */
+    background-image: radial-gradient(circle at 50% 0%, #1e293b, var(--bg-body));
+    color: var(--text-main);
+    font-family: var(--font);
+    margin: 0;
+    padding: 20px;
+    padding-bottom: 120px;
+    min-height: 100vh;
+}
+
+/* --- HEADER --- */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-top: 10px;
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: -0.5px;
+    color: var(--text-main);
+}
+h1 span { color: var(--gold); } /* 101 Vurgusu */
+
+.back-btn { 
+    color: var(--text-sub); text-decoration: none; font-size: 14px; 
+    display: flex; align-items: center; gap: 6px; font-weight: 500;
+}
+
+.history-btn {
+    background: rgba(255,255,255,0.05);
+    color: var(--text-sub);
+    border: var(--border);
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-size: 13px;
+    cursor: pointer;
+    display: flex; align-items: center; gap: 6px;
+    transition: 0.2s;
+}
+.history-btn:active { background: rgba(255,255,255,0.1); color: white; }
+
+/* --- SETUP SCREEN --- */
+.setup-container {
+    background: var(--surface);
+    border: var(--border);
+    padding: 40px 30px;
+    border-radius: 24px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    max-width: 400px;
+    margin: 60px auto;
+}
+
+.input-grid { display: flex; flex-direction: column; gap: 15px; margin: 30px 0; }
+
+input {
+    background: var(--bg-body);
+    border: 1px solid var(--surface-light);
+    padding: 18px;
+    border-radius: 12px;
+    color: white;
+    font-size: 16px;
+    text-align: center;
+    outline: none;
+    transition: 0.2s;
+    font-weight: 500;
+}
+input:focus { border-color: var(--blue); background: #151e32; }
+input::placeholder { color: #475569; }
+input.error { border-color: var(--red); animation: shake 0.3s; }
+
+.start-btn {
+    background: var(--blue);
+    color: white;
+    width: 100%; padding: 18px;
+    border: none; border-radius: 14px;
+    font-size: 16px; font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+/* --- GAME BOARD --- */
+.dashboard {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.player-card {
+    background: var(--surface);
+    border: var(--border);
+    border-radius: 20px;
+    padding: 20px 16px;
+    display: flex; flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+.card-header { 
+    display: flex; justify-content: space-between; align-items: center; 
+    margin-bottom: 10px; 
+}
+
+.p-name { 
+    font-size: 14px; font-weight: 600; color: var(--text-sub); 
+    text-transform: uppercase; letter-spacing: 0.5px;
+}
+.edit-icon { color: #475569; padding: 5px; cursor: pointer; }
+
+/* SKOR ALANI (GOLD VURGUSU) */
+.score-box {
+    text-align: center;
+    margin: 5px 0 15px 0;
+}
+.p-total {
+    font-size: 38px;
+    font-weight: 700;
+    color: var(--gold); /* Altın Rengi */
+    font-variant-numeric: tabular-nums; /* Rakamlar hizalı olsun */
+    text-shadow: 0 0 20px rgba(251, 191, 36, 0.1);
+}
+
+/* CEZA BUTONU (SADE & ŞIK) */
+.penalty-btn {
+    background: transparent;
+    color: var(--red);
+    border: 1px solid var(--red);
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.2s;
+    opacity: 0.8;
+}
+.penalty-btn:active {
+    background: var(--red);
+    color: white;
+    opacity: 1;
+}
+
+/* Ceza Rozeti (Badge) */
+.penalty-badge {
+    background: var(--red);
+    color: white;
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    position: absolute;
+    top: -8px; right: -8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    font-weight: 700;
+}
+
+/* --- BOTTOM ACTION BAR (GLASS) --- */
+.action-bar {
+    position: fixed; bottom: 0; left: 0; width: 100%;
+    background: rgba(15, 23, 42, 0.85); /* Yarı saydam koyu */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 20px;
+    padding-bottom: max(20px, env(safe-area-inset-bottom)); /* iPhone Home Bar */
+    display: flex; gap: 12px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    z-index: 50;
+}
+
+.btn-finish-game {
+    background: transparent;
+    color: var(--text-sub);
+    border: 1px solid var(--surface-light);
+    padding: 16px;
+    border-radius: 14px;
+    font-weight: 600; font-size: 14px;
+    flex: 1;
+    cursor: pointer;
+}
+.btn-end-round {
+    background: var(--text-main); /* Beyaz Buton */
+    color: black;
+    border: none;
+    padding: 16px;
+    border-radius: 14px;
+    font-weight: 700; font-size: 16px;
+    flex: 2;
+    box-shadow: 0 4px 15px rgba(255,255,255,0.1);
+}
+
+/* --- MODALS (Dark Theme) --- */
+.modal {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8);
+    display: none; justify-content: center; align-items: center;
+    z-index: 100;
+    backdrop-filter: blur(5px);
+}
+.modal.active { display: flex; animation: fadeIn 0.2s ease; }
+
+.modal-content {
+    background: #1e293b;
+    border: 1px solid rgba(255,255,255,0.1);
+    width: 90%; max-width: 380px; padding: 25px;
+    border-radius: 24px; text-align: center;
+    color: var(--text-main);
+}
+.modal-content h3 { margin-top: 0; font-size: 18px; color: var(--text-main); }
+.modal-desc { color: var(--text-sub); font-size: 13px; margin-bottom: 20px; }
+
+/* Modal Butonları */
+.modal-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+.btn-modal-primary { 
+    background: var(--blue); color: white; padding: 14px; 
+    border-radius: 12px; border:none; font-weight: 600; font-size: 15px; 
+}
+.btn-modal-cancel { 
+    background: transparent; color: var(--text-sub); padding: 14px; 
+    border-radius: 12px; border:none; font-size: 14px; 
+}
+
+/* Tablo */
+.history-table-wrapper {
+    margin: 15px 0; border-radius: 12px; overflow: hidden; border: 1px solid #334155;
+}
+.history-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.history-table th { background: #0f172a; color: var(--text-sub); padding: 12px; }
+.history-table td { background: #1e293b; color: var(--text-main); padding: 12px; border-bottom: 1px solid #334155; }
+.h-round-col { color: var(--gold); font-weight: bold; }
+
+/* Rank List */
+.rank-item {
+    display: flex; justify-content: space-between; padding: 14px;
+    border-bottom: 1px solid #334155; color: var(--text-main);
+}
+.rank-item.winner { color: var(--gold); font-weight: bold; border-color: var(--gold); }
+
+.hidden { display: none !important; }
+@keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+@keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>101</title>
+    <link rel="icon" type="image/png" href="img/yüzbir.png">
+    <link rel="stylesheet" href="yuzbir.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="back-btn"><i class="fa-solid fa-chevron-left"></i> Çıkış</a>
+        <h1>101 <span>OKEY</span></h1>
+        <button id="history-btn" class="history-btn hidden" onclick="okeyApp.showHistory()">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            <span>Geçmiş</span>
+        </button>
+    </header>
+
+    <div id="setup-screen" class="setup-container">
+        <h2>Yeni Masa</h2>
+        <p style="color:#94a3b8; font-size:14px;">Lütfen oyuncu isimlerini giriniz.</p>
+        
+        <div class="input-grid">
+            <input type="text" id="p1" placeholder="1. Oyuncu" autocomplete="off">
+            <input type="text" id="p2" placeholder="2. Oyuncu" autocomplete="off">
+            <input type="text" id="p3" placeholder="3. Oyuncu" autocomplete="off">
+            <input type="text" id="p4" placeholder="4. Oyuncu" autocomplete="off">
+        </div>
+        
+        <button class="start-btn" onclick="okeyApp.startGame()">Oyunu Başlat</button>
+    </div>
+
+    <div id="game-screen" class="hidden">
+        <div id="board" class="dashboard">
+            </div>
+
+        <div class="action-bar">
+            <button class="btn-finish-game" onclick="okeyApp.showEndGameSummary()">
+                Bitir
+            </button>
+            <button class="btn-end-round" onclick="okeyApp.openEndRoundModal()">
+                Turu Tamamla
+            </button>
+        </div>
+    </div>
+
+    <div id="history-modal" class="modal">
+        <div class="modal-content" style="max-width:500px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                <h3>Puan Tablosu</h3>
+                <i class="fa-solid fa-xmark" style="cursor:pointer; padding:5px; color:#94a3b8;" onclick="okeyApp.closeModals()"></i>
+            </div>
+            <div class="history-table-wrapper">
+                <table class="history-table">
+                    <thead><tr id="history-head"></tr></thead>
+                    <tbody id="history-body"></tbody>
+                </table>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-modal-cancel" onclick="okeyApp.closeModals()">Kapat</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="penalty-modal" class="modal">
+        <div class="modal-content">
+            <h3 id="penalty-target-name">Ceza İşlemi</h3>
+            <p class="modal-desc">Oyuncuya ceza puanı ekle.</p>
+            
+            <div class="modal-actions">
+                <button class="btn-modal-primary" style="background:transparent; border:1px solid var(--blue); color:var(--blue);" onclick="okeyApp.addPenalty(101)">+101 Ekle</button>
+                
+                <div style="display:flex; gap:10px;">
+                    <input type="number" id="manual-penalty-input" placeholder="Manuel" style="margin:0; padding:12px;">
+                    <button class="btn-modal-primary" style="width:80px;" onclick="okeyApp.addManualPenalty()">Ekle</button>
+                </div>
+                
+                <button class="btn-modal-cancel" onclick="okeyApp.closeModals()">Vazgeç</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="edit-score-modal" class="modal">
+        <div class="modal-content">
+            <h3>Puan Düzenle</h3>
+            <p class="modal-desc">Toplam puanı manuel olarak değiştirebilirsin.</p>
+            <input type="number" id="edit-score-input" placeholder="Yeni Toplam">
+            <div class="modal-actions">
+                <button class="btn-modal-primary" style="background:var(--green);" onclick="okeyApp.saveEditedScore()">Kaydet</button>
+                <button class="btn-modal-cancel" onclick="okeyApp.closeModals()">İptal</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="round-modal" class="modal">
+        <div class="modal-content">
+            <h3>Tur Sonu</h3>
+            <p class="modal-desc">Oyuncuların elinde kalan sayıları girin.</p>
+            <div id="round-inputs-container" style="text-align:left; margin:15px 0;"></div>
+            <div class="modal-actions">
+                <button class="btn-modal-primary" onclick="okeyApp.finalizeRound()">Kaydet</button>
+                <button class="btn-modal-cancel" onclick="okeyApp.closeModals()">Vazgeç</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="summary-modal" class="modal">
+        <div class="modal-content">
+            <i class="fa-solid fa-trophy" style="font-size:40px; color:var(--gold); margin-bottom:15px;"></i>
+            <h3>Oyun Bitti!</h3>
+            <div id="rank-list" class="rank-list" style="margin:20px 0;"></div>
+            <div class="modal-actions">
+                <button class="btn-modal-primary" style="background:var(--red);" onclick="okeyApp.resetGameFull()">Bitir ve Sıfırla</button>
+                <button class="btn-modal-cancel" onclick="okeyApp.closeModals()">Geri Dön</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="yuzbir.js"></script>
+</body>
+</html>

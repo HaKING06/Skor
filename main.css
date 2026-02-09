@@ -1,0 +1,136 @@
+:root {
+    --bg-dark: #020617; /* Simsiyah değil, çok koyu lacivert */
+    --card-uno: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(251, 191, 36, 0.1));
+    --card-101: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(30, 41, 59, 0.3));
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --border: 1px solid rgba(255, 255, 255, 0.08);
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+body {
+    background-color: var(--bg-dark);
+    /* Arka plana hafif, şık bir ışık hüzmesi */
+    background-image: radial-gradient(circle at 50% -20%, #1e293b, var(--bg-dark) 60%);
+    color: var(--text-main);
+    font-family: var(--font);
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    overflow: hidden;
+}
+
+/* Başlık Alanı */
+.header-area {
+    text-align: center;
+    margin-bottom: 40px;
+    animation: fadeInDown 0.8s ease;
+}
+
+h1 {
+    font-size: 32px;
+    font-weight: 800;
+    margin: 0 0 10px 0;
+    letter-spacing: -1px;
+    background: linear-gradient(to right, #fff, #94a3b8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+p.subtitle {
+    color: var(--text-muted);
+    font-size: 15px;
+    margin: 0;
+}
+
+/* Kartların Kapsayıcısı */
+.games-container {
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Genel Oyun Kartı Stili */
+.game-card {
+    position: relative;
+    height: 140px;
+    border-radius: 24px;
+    text-decoration: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    overflow: hidden;
+    border: var(--border);
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    animation: fadeInUp 0.8s ease backwards;
+}
+
+.game-card:hover { transform: scale(1.02); }
+.game-card:active { transform: scale(0.98); }
+
+/* UNO Kartı Özelleştirmesi */
+.uno-card {
+    background: var(--card-uno);
+    border-color: rgba(239, 68, 68, 0.3);
+    animation-delay: 0.1s;
+}
+.uno-glow {
+    position: absolute; width: 150px; height: 150px;
+    background: radial-gradient(circle, rgba(239,68,68,0.4), transparent 70%);
+    right: -30px; top: -30px; filter: blur(20px);
+}
+
+/* 101 Kartı Özelleştirmesi */
+.okey-card {
+    background: var(--card-101);
+    border-color: rgba(59, 130, 246, 0.3);
+    animation-delay: 0.2s;
+}
+.okey-glow {
+    position: absolute; width: 150px; height: 150px;
+    background: radial-gradient(circle, rgba(59,130,246,0.4), transparent 70%);
+    right: -30px; bottom: -30px; filter: blur(20px);
+}
+
+/* İçerik Yazıları */
+.card-content { z-index: 2; }
+.card-content h2 { font-size: 28px; font-weight: 800; margin: 0; letter-spacing: -0.5px; }
+.card-content span { font-size: 14px; opacity: 0.7; font-weight: 500; }
+
+/* İkon Alanı */
+.card-icon {
+    font-size: 40px;
+    z-index: 2;
+    background: rgba(255,255,255,0.1);
+    width: 60px; height: 60px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 18px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Animasyonlar */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Alt Bilgi */
+footer {
+    position: absolute; bottom: 20px;
+    color: #334155; font-size: 12px;
+}

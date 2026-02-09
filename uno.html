@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>UNO</title>
+    <link rel="icon" type="image/png" href="img/uno.png">
+    <link rel="stylesheet" href="uno.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="back-btn"><i class="fa-solid fa-chevron-left"></i> Çıkış</a>
+        <h1>
+            <span style="color:#ff5555">U</span><span style="color:#ffaa00">N</span><span style="color:#5555ff">O</span>
+        </h1>
+        <button id="history-btn" class="history-btn hidden" onclick="unoApp.showHistory()">
+            <i class="fa-solid fa-clock-rotate-left"></i> Geçmiş
+        </button>
+    </header>
+
+    <div id="setup-screen" class="setup-container">
+        <div id="step-1">
+            <h2 style="margin-bottom:5px;">Oyuncu Sayısı</h2>
+            <p style="font-size:12px; color:#666; margin-bottom:20px;">Kaç kişi oynayacaksınız?</p>
+            
+            <div class="input-grid">
+                <input type="number" id="player-count" placeholder="Örn: 4" min="2" max="10">
+            </div>
+            <button class="start-btn" onclick="unoApp.generateInputs()">Devam Et</button>
+        </div>
+
+        <div id="step-2" class="hidden">
+            <h2 style="margin-bottom:20px;">İsimler</h2>
+            <div id="name-inputs" class="input-grid"></div>
+            <button class="start-btn" onclick="unoApp.startGame()">Oyunu Başlat</button>
+        </div>
+    </div>
+
+    <div id="game-screen" class="hidden">
+        <div id="dashboard" class="dashboard">
+            </div>
+
+        <div class="action-bar">
+            <button class="btn-finish" onclick="unoApp.finishGame()">
+                <i class="fa-solid fa-flag-checkered"></i> Bitir
+            </button>
+            <button class="btn-round" onclick="unoApp.openRoundModal()">
+                + Tur Ekle
+            </button>
+        </div>
+    </div>
+
+    <div id="round-modal" class="modal">
+        <div class="modal-content">
+            <h3 style="text-align:center;">Tur <span id="current-round-display">1</span> Puanları</h3>
+            <p style="text-align:center; font-size:12px; color:#666; margin-bottom:20px;">Elde kalan puanları girin</p>
+            
+            <div id="round-inputs" class="score-inputs"></div>
+            
+            <div class="modal-footer">
+                <button class="btn-cancel" onclick="unoApp.closeModals()">İptal</button>
+                <button class="btn-save" onclick="unoApp.saveRound()">Kaydet</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="history-modal" class="modal">
+        <div class="modal-content" style="max-width:500px;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <h3>Oyun Geçmişi</h3>
+                <i class="fa-solid fa-xmark" style="cursor:pointer; padding:10px;" onclick="unoApp.closeModals()"></i>
+            </div>
+            
+            <div class="history-table-wrapper">
+                <table class="history-table">
+                    <thead>
+                        <tr id="history-head">
+                            </tr>
+                    </thead>
+                    <tbody id="history-body">
+                        </tbody>
+                </table>
+            </div>
+            <button class="btn-cancel" style="width:100%; margin-top:10px; background:#333; color:white;" onclick="unoApp.closeModals()">Kapat</button>
+        </div>
+    </div>
+
+    <div id="edit-modal" class="modal">
+        <div class="modal-content">
+            <h3 style="text-align:center;">Puan Düzelt</h3>
+            <input type="number" id="edit-val" style="margin:20px 0;">
+            <div class="modal-footer">
+                <button class="btn-cancel" onclick="unoApp.closeModals()">İptal</button>
+                <button class="btn-save" onclick="unoApp.saveEdit()">Güncelle</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="summary-modal" class="modal">
+        <div class="modal-content" style="text-align:center;">
+            <i class="fa-solid fa-trophy" style="font-size:50px; color:var(--uno-yellow); margin-bottom:15px;"></i>
+            <h2>Kazanan Belirlendi!</h2>
+            <div id="rank-list" style="text-align:left; margin:20px 0;"></div>
+            
+            <button class="start-btn" onclick="unoApp.resetGame()">Oyunu Sıfırla</button>
+            <button class="btn-cancel" style="margin-top:10px; width:100%;" onclick="unoApp.closeModals()">Geri Dön</button>
+        </div>
+    </div>
+
+    <script src="uno.js"></script>
+</body>
+</html>
